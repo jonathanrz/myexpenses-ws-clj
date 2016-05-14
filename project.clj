@@ -7,8 +7,11 @@
                  [ring/ring-json "0.1.2"]
                  [c3p0/c3p0 "0.9.1.2"]
                  [org.clojure/java.jdbc "0.2.3"]
+                 [com.novemberain/monger "3.0.2"]
+                 [cheshire "4.0.3"]
                  [com.h2database/h2 "1.3.168"]
-                 [cheshire "4.0.3"]]
+                 [org.clojure/tools.logging "0.3.1"]
+                 [org.clojure/data.json "0.2.6"]]
   :plugins [[lein-ring "0.9.7"]]
   :ring {:handler myexpenses-ws-clj.handler/app}
   :profiles
