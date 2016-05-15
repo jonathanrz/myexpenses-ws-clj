@@ -1,25 +1,7 @@
 (ns myexpenses-ws-clj.db
-  (:import com.mchange.v2.c3p0.ComboPooledDataSource))
+  (:require [monger.core :as mg])
+)
 
-(def db-config
-  {:classname "org.h2.Driver"
-   :subprotocol "h2"
-   :subname "mem:documents"
-   :user ""
-   :password ""})
-
- (defn pool
-   [config]
-   (let [cpds (doto (ComboPooledDataSource.)
-                (.setDriverClass (:classname config))
-                (.setJdbcUrl (str "jdbc:" (:subprotocol config) ":" (:subname config)))
-                (.setUser (:user config))
-                (.setPassword (:password config))
-                (.setMaxPoolSize 1)
-                (.setMinPoolSize 1)
-                (.setInitialPoolSize 1))]
-     {:datasource cpds}))
-
- (def pooled-db (delay (pool db-config)))
-
- (defn db-connection [] @pooled-db)
+(defn get-db []
+  (mg/get-db (mg/connect {:host "192.168.99.100:27017"}) "my-expenses-db")
+)
