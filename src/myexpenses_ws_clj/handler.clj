@@ -7,7 +7,7 @@
 
     (defroutes app-routes
       (context "/sources" [] (defroutes sources-routes
-        (GET  "/" [] (get-all-sources))
+        (GET  "/" [last-updated-at] (get-all-sources last-updated-at))
         (POST "/" {body :body} (create-new-source body))
         (context "/:id" [id] (defroutes source-routes
           (GET    "/" [] (get-source id))

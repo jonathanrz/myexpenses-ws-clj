@@ -6,7 +6,8 @@
             [clojure.data.json :as json]
             [myexpenses-ws-clj.db :as db]
             [clj-time.core :as time]
-            [clj-time.coerce :as tc])
+            [clj-time.coerce :as tc]
+            [monger.operators :refer :all])
 )
 
 (defn table [] "sources")
@@ -15,8 +16,9 @@
 
 (defn now [] (tc/to-long (time/now)))
 
-(defn get-all-sources []
-  (response (json/write-str (mc/find-maps (db/get-db) (table))))
+(defn get-all-sources [last-updated-at]
+  (log/info "last-updated-at=" last-updated-at)
+  (response (json/write-str (mc/find-maps (db/get-db) (table) {:updated_at { $gt (read-string last-updated-at) }})))
 )
 
 (defn get-source [id]
@@ -25,7 +27,7 @@
 
 (defn create-new-source [src]
   (let [id (uuid)]
-    (mc/insert (db/get-db) (table) (merge src {:_id id :createdAt (now) :updatedAt (now)}))
+    (mc/insert (db/get-db) (table) (merge src {:_id id :created_at (now) :updated_at (now)}))
     (get-source id)
   )
 )
