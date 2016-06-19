@@ -1,5 +1,6 @@
 (ns myexpenses-ws-clj.db
-  (:require [monger.core :as mg])
+  (:require [monger.core :as mg]
+            [clojure.tools.logging :as log])
 )
 
 (defn get-db-url []
