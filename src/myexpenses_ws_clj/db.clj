@@ -8,6 +8,6 @@
 
 (defn get-db []
   (let [uri (get-db-url)
-        [conn db] (mg/connect-via-uri uri)]
+        {:keys [conn db]} (mg/connect-via-uri uri)]
   (mg/get-db conn "my-expenses-db"))
 )
