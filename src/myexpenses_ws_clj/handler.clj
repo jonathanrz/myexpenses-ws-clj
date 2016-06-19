@@ -2,7 +2,7 @@
       (:use compojure.core)
       (:use myexpenses-ws-clj.source)
       (:require [compojure.handler :as handler]
-                [compojure.handler :refer [site]
+                [compojure.handler :refer [site]]
                 [ring.middleware.json :as middleware]
                 [compojure.route :as route]
                 [ring.adapter.jetty :as jetty]))
@@ -22,5 +22,6 @@
             (middleware/wrap-json-body)
             (middleware/wrap-json-response)))
 
-    (defn -main [& [port]]
-          (jetty/run-jetty (site #'app) {:port 3000)})
+    (defn -main []
+        (let [port (Integer/parseInt (get (System/getenv) "PORT" "3000"))]
+          (jetty/run-jetty app {:port port})))

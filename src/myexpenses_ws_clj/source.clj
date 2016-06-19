@@ -7,8 +7,7 @@
             [myexpenses-ws-clj.db :as db]
             [clj-time.core :as time]
             [clj-time.coerce :as tc]
-            [monger.operators :refer :all])
-)
+            [monger.operators :refer :all]))
 
 (defn table [] "sources")
 
