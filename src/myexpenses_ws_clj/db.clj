@@ -9,5 +9,5 @@
 (defn get-db []
   (let [uri (get-db-url)
         {:keys [conn db]} (mg/connect-via-uri uri)]
-  (mg/get-db conn "my-expenses-db"))
+  (mg/get-db conn "heroku_gprmdgjc"))
 )
