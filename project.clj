@@ -11,9 +11,11 @@
                  [cheshire "4.0.3"]
                  [com.h2database/h2 "1.3.168"]
                  [org.clojure/tools.logging "0.3.1"]
-                 [org.clojure/data.json "0.2.6"]]
+                 [org.clojure/data.json "0.2.6"]
+                 [ring/ring-jetty-adapter "1.4.0"]]
   :plugins [[lein-ring "0.9.7"]]
   :ring {:handler myexpenses-ws-clj.handler/app}
+  :uberjar-name "myexpenses-server.jar"
   :profiles
   {:dev {:dependencies [[javax.servlet/servlet-api "2.5"]
                         [ring/ring-mock "0.3.0"]]}})

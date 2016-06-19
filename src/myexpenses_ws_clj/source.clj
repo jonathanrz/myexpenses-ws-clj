@@ -17,7 +17,6 @@
 (defn now [] (tc/to-long (time/now)))
 
 (defn get-all-sources [last-updated-at]
-  (log/info "last-updated-at=" last-updated-at)
   (response (json/write-str (mc/find-maps (db/get-db) (table) {:updated_at { $gt (read-string last-updated-at) }})))
 )
 
