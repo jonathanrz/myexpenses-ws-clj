@@ -8,5 +8,5 @@
 
 (defn get-db []
   (log/info "mongo uri=" (get-db-url))
-  (mg/get-db (mg/connect {:host (get-db-url)}) "my-expenses-db")
+  (mg/get-db (mg/connect-via-uri {:host (get-db-url)}) "my-expenses-db")
 )
