@@ -1,4 +1,4 @@
-(ns myexpenses-ws-clj.source
+(ns myexpenses-ws-clj.account
   (:use ring.util.response)
   (:require [clojure.java.jdbc :as sql]
             [monger.collection :as mc]
@@ -9,7 +9,7 @@
             [clj-time.coerce :as tc]
             [monger.operators :refer :all]))
 
-(def table "sources")
+(def table "accounts")
 
 (defn uuid [] (str (java.util.UUID/randomUUID)))
 
