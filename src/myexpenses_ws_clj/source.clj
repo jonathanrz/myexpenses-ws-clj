@@ -1,26 +1,21 @@
 (ns myexpenses-ws-clj.source
   (:use ring.util.response)
+  (:use myexpenses-ws-clj.helper)
   (:require [clojure.java.jdbc :as sql]
             [monger.collection :as mc]
             [clojure.tools.logging :as log]
             [clojure.data.json :as json]
             [myexpenses-ws-clj.db :as db]
-            [clj-time.core :as time]
-            [clj-time.coerce :as tc]
             [monger.operators :refer :all]))
 
 (def table "sources")
 
-(defn uuid [] (str (java.util.UUID/randomUUID)))
-
-(defn now [] (tc/to-long (time/now)))
-
 (defn get-all [last-updated-at]
-  (response (json/write-str (mc/find-maps (db/get-db) table {:updated_at { $gt (read-string last-updated-at) }})))
+  (json-response (json/write-str (mc/find-maps (db/get-db) table {:updated_at { $gt (read-string last-updated-at) }})))
 )
 
 (defn get [id]
-  (response (json/write-str (mc/find-maps (db/get-db) table {:_id id})))
+  (json-response (json/write-str (mc/find-maps (db/get-db) table {:_id id})))
 )
 
 (defn create-new [src]
