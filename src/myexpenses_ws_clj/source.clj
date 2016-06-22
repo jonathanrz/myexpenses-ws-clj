@@ -14,8 +14,12 @@
   (json-response (json/write-str (mc/find-maps (db/get-db) table {:updated_at { $gt (read-string last-updated-at) }})))
 )
 
+(defn find-source [id]
+  (first (mc/find-maps (db/get-db) table {:_id id}))
+)
+
 (defn get [id]
-  (json-response (json/write-str (mc/find-maps (db/get-db) table {:_id id})))
+  (json-response (json/write-str (find-source id)))
 )
 
 (defn create-new [src]
@@ -26,7 +30,7 @@
 )
 
 (defn update [id src]
-  (let [origin (into {} (mc/find-maps (db/get-db) (table) {:_id id}))
+  (let [origin (into {} (find-source id))
         new (merge origin src)]
     (mc/update (db/get-db) table {:_id id} (merge new {:updatedAt (now)}) {:upsert false})
     (get id)
