@@ -1,12 +1,13 @@
 (ns myexpenses-ws-clj.handler
       (:use compojure.core)
+      (:use ring.util.response)
       (:require [compojure.handler :as handler]
-                [compojure.handler :refer [site]]
                 [ring.middleware.json :as middleware]
                 [compojure.route :as route]
                 [ring.adapter.jetty :as jetty]
                 [myexpenses-ws-clj.account :as account]
-                [myexpenses-ws-clj.source :as source]))
+                [myexpenses-ws-clj.source :as source]
+                [clojure.tools.logging :as log]))
 
     (defroutes app-routes
       (context "/sources" [] (defroutes sources-routes
@@ -25,10 +26,20 @@
           (DELETE "/" [] (account/delete id))))))
       (route/not-found "Not Found"))
 
+    (defn check-auth-header [handler]
+      (fn [request]
+        (if (= (get (request :headers) "auth-token") (get (System/getenv) "MYEXPENSES_AUTH_TOKEN"))
+          (handler request)
+          {:status 401}
+        )
+      )
+    )
+
     (def app
         (-> (handler/api app-routes)
             (middleware/wrap-json-body)
-            (middleware/wrap-json-response)))
+            (middleware/wrap-json-response)
+            (check-auth-header)))
 
     (defn -main []
         (let [port (Integer/parseInt (get (System/getenv) "PORT" "3000"))]
