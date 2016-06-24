@@ -10,6 +10,7 @@
                 [myexpenses-ws-clj.bill :as bill]
                 [myexpenses-ws-clj.card :as card]
                 [myexpenses-ws-clj.expense :as expense]
+                [myexpenses-ws-clj.receipt :as receipt]
                 [clojure.tools.logging :as log]))
 
     (defroutes app-routes
@@ -48,6 +49,13 @@
           (GET    "/" [] (expense/get id))
           (PUT    "/" {body :body} (expense/update id body))
           (DELETE "/" [] (expense/delete id))))))
+      (context "/receipts" [] (defroutes receipts-routes
+        (GET  "/" [last-updated-at] (receipt/get-all last-updated-at))
+        (POST "/" {body :body} (receipt/create-new body))
+        (context "/:id" [id] (defroutes receipt-routes
+          (GET    "/" [] (receipt/get id))
+          (PUT    "/" {body :body} (receipt/update id body))
+          (DELETE "/" [] (receipt/delete id))))))
       (route/not-found "Not Found"))
 
     (defn check-auth-header [handler]
