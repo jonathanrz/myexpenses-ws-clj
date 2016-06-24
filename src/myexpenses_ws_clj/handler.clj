@@ -7,6 +7,7 @@
                 [ring.adapter.jetty :as jetty]
                 [myexpenses-ws-clj.account :as account]
                 [myexpenses-ws-clj.source :as source]
+                [myexpenses-ws-clj.bill :as bill]
                 [clojure.tools.logging :as log]))
 
     (defroutes app-routes
@@ -24,6 +25,13 @@
           (GET    "/" [] (account/get id))
           (PUT    "/" {body :body} (account/update id body))
           (DELETE "/" [] (account/delete id))))))
+      (context "/bills" [] (defroutes bills-routes
+        (GET  "/" [last-updated-at] (bill/get-all last-updated-at))
+        (POST "/" {body :body} (bill/create-new body))
+        (context "/:id" [id] (defroutes bill-routes
+          (GET    "/" [] (bill/get id))
+          (PUT    "/" {body :body} (bill/update id body))
+          (DELETE "/" [] (bill/delete id))))))
       (route/not-found "Not Found"))
 
     (defn check-auth-header [handler]
