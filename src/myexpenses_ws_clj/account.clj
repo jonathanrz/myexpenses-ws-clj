@@ -30,11 +30,8 @@
 )
 
 (defn update [id src]
-  (let [origin (into {} (find-account id))
-        new (merge origin src)]
-    (mc/update (db/get-db) table {:_id id} (merge new {:updatedAt (now)}) {:upsert false})
-    (get id)
-  )
+  (mc/update (db/get-db) table {:_id id} (merge src {:updatedAt (now)}) {:upsert false})
+  (get id)
 )
 
 (defn delete [id]
