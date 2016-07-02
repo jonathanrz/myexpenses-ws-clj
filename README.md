@@ -2,7 +2,9 @@
 
 # myexpenses-ws-clj
 
-Backend for [myexpenses-android]: https://github.com/jonathanrz/myexpenses-android
+Backend for [myexpenses-android][]
+
+[myexpenses-android]: https://github.com/jonathanrz/myexpenses-android
 
 ## Prerequisites
 
