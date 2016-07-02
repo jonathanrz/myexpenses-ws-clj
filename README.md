@@ -1,6 +1,8 @@
+[![Stories in Ready](https://badge.waffle.io/jonathanrz/myexpenses-ws-clj.svg?label=ready&title=Ready)](http://waffle.io/jonathanrz/myexpenses-ws-clj)
+
 # myexpenses-ws-clj
 
-FIXME
+Backend for [myexpenses-android]: https://github.com/jonathanrz/myexpenses-android
 
 ## Prerequisites
 
