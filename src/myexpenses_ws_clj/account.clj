@@ -29,7 +29,15 @@
   )
 )
 
-(defn update [id src]
+(defn update-partial [id src]
+  (let [origin (into {} (find-account id))
+        new (merge origin src)]
+    (mc/update (db/get-db) table {:_id id} (merge new {:updatedAt (now)}) {:upsert false})
+    (get id)
+  )
+)
+
+(defn update-complete [id src]
   (mc/update (db/get-db) table {:_id id} (merge src {:updatedAt (now)}) {:upsert false})
   (get id)
 )

@@ -19,42 +19,48 @@
         (POST "/" {body :body} (source/create-new body))
         (context "/:id" [id] (defroutes source-routes
           (GET    "/" [] (source/get id))
-          (PUT    "/" {body :body} (source/update id body))
+          (PATCH  "/" {body :body} (source/update-partial id body))
+          (PUT    "/" {body :body} (source/update-complete id body))
           (DELETE "/" [] (source/delete id))))))
       (context "/accounts" [] (defroutes accounts-routes
         (GET  "/" [last-updated-at] (account/get-all last-updated-at))
         (POST "/" {body :body} (account/create-new body))
         (context "/:id" [id] (defroutes account-routes
           (GET    "/" [] (account/get id))
-          (PUT    "/" {body :body} (account/update id body))
+          (PATCH  "/" {body :body} (account/update-partial id body))
+          (PUT    "/" {body :body} (account/update-complete id body))
           (DELETE "/" [] (account/delete id))))))
       (context "/bills" [] (defroutes bills-routes
         (GET  "/" [last-updated-at] (bill/get-all last-updated-at))
         (POST "/" {body :body} (bill/create-new body))
         (context "/:id" [id] (defroutes bill-routes
           (GET    "/" [] (bill/get id))
-          (PUT    "/" {body :body} (bill/update id body))
+          (PATCH  "/" {body :body} (bill/update-partial id body))
+          (PUT    "/" {body :body} (bill/update-complete id body))
           (DELETE "/" [] (bill/delete id))))))
       (context "/cards" [] (defroutes cards-routes
         (GET  "/" [last-updated-at] (card/get-all last-updated-at))
         (POST "/" {body :body} (card/create-new body))
         (context "/:id" [id] (defroutes card-routes
           (GET    "/" [] (card/get id))
-          (PUT    "/" {body :body} (card/update id body))
+          (PATCH  "/" {body :body} (card/update-partial id body))
+          (PUT    "/" {body :body} (card/update-complete id body))
           (DELETE "/" [] (card/delete id))))))
       (context "/expenses" [] (defroutes expenses-routes
         (GET  "/" [last-updated-at] (expense/get-all last-updated-at))
         (POST "/" {body :body} (expense/create-new body))
         (context "/:id" [id] (defroutes expense-routes
           (GET    "/" [] (expense/get id))
-          (PUT    "/" {body :body} (expense/update id body))
+          (PATCH  "/" {body :body} (expense/update-partial id body))
+          (PUT    "/" {body :body} (expense/update-complete id body))
           (DELETE "/" [] (expense/delete id))))))
       (context "/receipts" [] (defroutes receipts-routes
         (GET  "/" [last-updated-at] (receipt/get-all last-updated-at))
         (POST "/" {body :body} (receipt/create-new body))
         (context "/:id" [id] (defroutes receipt-routes
           (GET    "/" [] (receipt/get id))
-          (PUT    "/" {body :body} (receipt/update id body))
+          (PATCH  "/" {body :body} (receipt/update-partial id body))
+          (PUT    "/" {body :body} (receipt/update-complete id body))
           (DELETE "/" [] (receipt/delete id))))))
       (route/not-found "Not Found"))
 
