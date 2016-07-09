@@ -81,4 +81,4 @@
 
     (defn -main []
         (let [port (Integer/parseInt (get (System/getenv) "PORT" "3000"))]
-          (jetty/run-jetty app {:port port})))
+          (jetty/run-jetty app {:port port :max-threads 10})))
