@@ -32,13 +32,13 @@
 (defn update-partial [id src]
   (let [origin (into {} (find-expense id))
         new (merge origin src)]
-    (mc/update (db/get-db) table {:_id id} (merge new {:updatedAt (now)}) {:upsert false})
+    (mc/update (db/get-db) table {:_id id} (merge new {:updated_at (now)}) {:upsert false})
     (get id)
   )
 )
 
 (defn update-complete [id src]
-  (mc/update (db/get-db) table {:_id id} (merge src {:updatedAt (now)}) {:upsert false})
+  (mc/update (db/get-db) table {:_id id} (merge src {:updated_at (now)}) {:upsert false})
   (get id)
 )
 
