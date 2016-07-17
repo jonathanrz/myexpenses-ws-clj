@@ -62,6 +62,7 @@
           (PATCH  "/" {body :body} (receipt/update-partial id body))
           (PUT    "/" {body :body} (receipt/update-complete id body))
           (DELETE "/" [] (receipt/delete id))))))
+      (GET "/health-check" [] {:status 200})
       (route/not-found "Not Found"))
 
     (defn check-auth-header [handler]
